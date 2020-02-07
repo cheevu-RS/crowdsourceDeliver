@@ -24,6 +24,7 @@ function wrapAsync(fn: any) {
 
 router.get("/", indexController.home);
 router.get("/contact", indexController.contact);
+router.get("/profile", indexController.profile);
 router.get("/404", indexController.notFound);
 
 router.post(

@@ -160,12 +160,60 @@ body {
 }
 
 
-/* Custom Css */
+/* Custom CSS */
 
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic|Zhi+Mang+Xing&display=swap');
 
 *{
     font-family: 'Nanum Gothic'
+}
+
+#main_container{
+    padding-top: 20px;
+}
+
+.footer{
+    display: none;
+}
+
+.mobile_bottom_bar{
+    display: none;
+}
+
+@media (max-width: 768px){
+    #main_container{
+        height: calc(100vh - 116px);
+        overflow: auto;
+    }
+
+    .navbar-toggler{
+        display: none;
+    }
+
+    .mobile_bottom_bar{
+        display: flex;
+        height: 60px;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        justify-content: space-around;
+        border-top: 1px lightgray solid;
+    }
+
+    .mobile_bottom_bar a {
+        color: gray;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.6em;
+    }
+
+    .mobile_bottom_bar>div{
+        width: 25%;
+    }
 }
 
 @media (min-width: 728px){
