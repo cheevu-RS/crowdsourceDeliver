@@ -29,6 +29,7 @@ router.get("/orders", indexController.orders);
 router.get("/profile/:username", indexController.profile);
 router.get("/search", indexController.search);
 router.get("/404", indexController.notFound);
+router.get("/chooseOrder", indexController.chooseOrder);
 
 router.post(
     "/contact",

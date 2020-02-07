@@ -70,3 +70,9 @@ export const contactForm = (req: Request, res: Response) => {
         throw new Error(e);
     }
 };
+
+export const chooseOrder = (req: Request, res: Response) => {
+    res.render("chooseOrder", {
+        title: "Choose the order you'd like to deliver"
+    })
+}

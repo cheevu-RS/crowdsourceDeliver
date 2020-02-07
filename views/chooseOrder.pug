@@ -1,0 +1,76 @@
+extends layout
+
+block content
+
+  section
+    .container
+      .row
+        .col-lg-12.order-12.order-lg-12.text-center
+          h2 #{title}
+  
+    section#collection
+    .container
+      h2.text-center Your friends' orders
+      .row
+        .col-12
+          #accordionExample.accordion
+            .card
+              #headingOne.card-header
+                .row
+                  li.list-group-item.col-6.text-center.align-middle Shop name
+                  li.list-group-item.col-6.text-center.align-middle Orderer name
+                .row
+                  .col-12.text-center
+                    button.btn.btn-link(type='button', data-toggle='collapse', data-target='#collapseOne', aria-expanded='true', aria-controls='collapseOne')
+                      | Order Information      
+              #collapseOne.collapse.show(aria-labelledby='headingOne', data-parent='#accordionExample')
+                .card-body
+                  | Shop address
+                  br
+                  | price quote
+                  br
+                  | time left
+                  br
+                  | delivery address
+                  br
+                  | ETA
+            .card
+              #headingOne.card-header
+                .row
+                  li.list-group-item.col-6.text-center.align-middle Shop name
+                  li.list-group-item.col-6.text-center.align-middle Orderer name
+                .row
+                  .col-12.text-center
+                    button.btn.btn-link(type='button', data-toggle='collapse', data-target='#collapseTwo', aria-expanded='true', aria-controls='collapseOne')
+                      | Order Information      
+              #collapseTwo.collapse.show(aria-labelledby='headingOne', data-parent='#accordionExample')
+                .card-body
+                  | Shop address
+                  br
+                  | price quote
+                  br
+                  | time left
+                  br
+                  | delivery address
+                  br
+                  | ETA
+            .card
+              #headingOne.card-header
+                .row
+                  li.list-group-item.col-6.text-center.align-middle Shop name
+                  li.list-group-item.col-6.text-center.align-middle Orderer name
+                .row
+                  .col-12.text-center
+                    button.btn.btn-link(type='button', data-toggle='collapse', data-target='#collapseThree', aria-expanded='true', aria-controls='collapseOne')
+                      | Order Information      
+              #collapseThree.collapse.show(aria-labelledby='headingOne', data-parent='#accordionExample')
+                .card-body
+                  | Shop address
+                  br
+                  | price quote
+                  br
+                  | time left
+                  br
+                  | delivery address
+                  br
+                  | ETA
