@@ -73,12 +73,10 @@ app.use(async (req: express.Request, res: express.Response, next: express.NextFu
     if(req.user){
         //@ts-ignore
         userData = await UserData.findOne({username:String(req.user.email).slice(0,9)}) || null;
-    } else {
+    }else{
         userData = null;
     }
     
-    res.locals.userData = userData;
-
     console.log(res.locals.userData);
     res.locals.currentPath = req.path;
     next();
@@ -86,7 +84,7 @@ app.use(async (req: express.Request, res: express.Response, next: express.NextFu
 
 //  Express Routing URLS
 app.use('/user', userRouter);
-app.use('/bid', bidRouter);
+app.use('/bids', bidRouter);
 app.use('/order', orderRouter);
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
