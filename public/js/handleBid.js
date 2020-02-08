@@ -2,6 +2,8 @@ console.log("heyyyy")
 
 function handleBidSubmit() {
     console.log("hi");
+
+    fetch("/api/createBid")
 }
 
 function timer(countDownDate){

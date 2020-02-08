@@ -1,6 +1,8 @@
 import {Request, Response, NextFunction} from "express";
 import {validationResult} from "express-validator";
 import * as mail from "../handlers/mail";
+const fetch = require("node-fetch");
+
 
 import {UserData} from '../models/userModel';
 
@@ -71,9 +73,11 @@ export const contactForm = (req: Request, res: Response) => {
     }
 };
 
-export const chooseOrder = (req: Request, res: Response) => {
+export const chooseOrder = async (req: Request, res: Response) => {
+    let availableOrders = await fetch('http://localhost:3000/user/getValidOrders/?username=' + res.locals.username)
     res.render("chooseOrder", {
-        title: "Choose the order you'd like to deliver"
+        title: "Choose the order you'd like to deliver",
+        availableOrders: availableOrders
     })
 }
 
