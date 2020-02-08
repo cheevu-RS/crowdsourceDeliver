@@ -7,10 +7,16 @@ export const home = (req: Request, res: Response) => {
 };
 
 export const profile = (req: Request, res: Response) => {
+    if (!req.user) {
+        return res.redirect("/login");
+    }
     res.render("profile", {title: "Profile | CSD"});
 };
 
 export const search = (req: Request, res: Response) => {
+    if (!req.user) {
+        return res.redirect("/login");
+    }
     res.render("search", {title: "Explore | CSD"});
 };
 
