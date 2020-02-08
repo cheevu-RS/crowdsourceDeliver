@@ -40,16 +40,21 @@ let addFriend = async(req, res, next) => {
     }
 
     let username = req.query.username
-    let user = await UserData.findOne({username : username})
+    let user = await UserData.findOne({ username: username })
+    if (!user) {
+        return res.json({
+            message: "No user with " + username
+        })
+    }
     let friendList = user.friendList
 
-    if(friendList.length == 0){
+    if(!friendList || friendList.length == 0){
         friendList = [friendId]
     }else{
         friendList.push(friendId)
     }
     
-    await UserData.findOneAndUpdate({username : username, $set : {friendList : friendList}})
+    await UserData.findOneAndUpdate({ username: username }, {$set : {friendList : friendList}})
     res.json("Successfully added friend " + friendId + " to user " + username)
 }
 
@@ -82,6 +87,7 @@ let getValidOrders = async(req, res, next) => {
         })
     }
     let friends = await getFriends(username)
+    // return res.json(200);
     let validOrders = []
 
     // Checking if any of these friends have issued any orders
@@ -89,12 +95,13 @@ let getValidOrders = async(req, res, next) => {
         let friend_obj = friends[i]
         let friend_data = friend_obj.data
         let friendId = friend_data._id
+        console.log("orderdata", OrderData);
         let orders = await OrderData.find({ordererId : friendId})
         if(!orders || orders.length == 0){
             continue;
         }
-        for(let i = 0; i < orders.length; ++i){
-            let order = orders[i]
+        for(let j = 0; j < orders.length; ++j){
+            let order = orders[j]
             validOrders.push(order)
         }
     }
@@ -129,7 +136,8 @@ let getFriends = async(username) => {
         for(let j = 0; j < friend_details.friendList.length; ++j){
             let friend_friend = friend_details.friendList[j]
             // console.log(friend_friend, "Friend friend")
-            let friend_friend_details = await UserData.findOne({username : friend_friend})
+            let friend_friend_details = await UserData.findOne({ username: friend_friend })
+            if (friend_friend_details.username == username) continue;
             if(!return_data.has({data : friend_friend_details, depth : 1})){
                 return_data.add({data : friend_friend_details, depth : 2}) 
             }

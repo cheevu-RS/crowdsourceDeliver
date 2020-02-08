@@ -20,5 +20,5 @@ const Order = Schema({
 })
 
 module.exports = {
-    Order : Model('OrderSchema', Order)
+    OrderData : Model('OrderSchema', Order)
 }
