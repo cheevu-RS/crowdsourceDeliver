@@ -22,7 +22,11 @@ block content
                         | Rating: #{userData.rating}
                         br
                         | UPI id: shakeabi@upi
-        if userData.username==currentPath.split('/')[2]           
+        #data_username(style='display:none;')
+            | #{user.email.slice(0,9)}
+        #data_friend_username(style='display:none;')
+            | #{currentPath.split('/')[2]}
+        if user.email.slice(0,9)==currentPath.split('/')[2]           
             .profile-user-inner-nav
                 div
                     p
@@ -31,4 +35,9 @@ block content
                     p
                         | Current Orders
             .profile-user-order-container
+        else
+            button.add-friend.btn.btn-success(style='width: 100%;' onclick='addFriend(this.value);')
+                | Add Friend
+
+    script(src='/js/profile.js')
 

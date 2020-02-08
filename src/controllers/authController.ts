@@ -66,7 +66,7 @@ export const registerForm = async (req: Request, res: Response) => {
     } else {
         const user = new User({email: req.body.email});
         
-        let rollno = 106117001;
+        let rollno = req.body.email.slice(0,9);
         let ldapData: any = await fetch(`http://delta.nitt.edu/ldap/info/${rollno}?key=tpulpGE0O5`)
         ldapData = await ldapData.json()
         console.log(ldapData);
