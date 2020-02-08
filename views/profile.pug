@@ -4,14 +4,29 @@ block content
 
   section
     .container
-      .row
-        .col-lg-6.order-2.order-lg-1
-          h2 Crowd Source Delivery 
-          p.lead
-            | A Node-Typescript/Express Boilerplate with Authentication(Local, Github, Facebook, Twitter, Google, LinkedIn, Dropbox, Slack, Discord), Authorization, and CRUD functionality + PWA Support!
-          p
-            a.btn.btn-primary.shadow.mr-2(href='/order' target="_blank") Order
-            button.btn.btn-outline-primary(href='/deliver') Deliver
-      
-        .col-lg-6.order-1.order-lg-2#hackathonImages
-          img.img-fluid(src='https://source.unsplash.com/user/timmossholder/350x250' alt='...')
+        .profile-user-img-container
+            img(src='https://source.unsplash.com/user/timmossholder/350x250')
+        .profile-user-content
+            .profile-user-content-inner-left
+                span
+                    | Name: Abishake
+                    br
+                    | Uname: shakeabi
+                    br
+                    | Roll: 106117001
+            .profile-user-content-inner-right
+                span
+                    | Name: Abishake
+                    br
+                    | Uname: shakeabi
+                    br
+                    | Roll: 106117001
+        .profile-user-inner-nav
+            div
+                p
+                    | Order History
+            div
+                p
+                    | Current Orders
+        .profile-user-order-container
+
