@@ -87,13 +87,14 @@ self.addEventListener("push", event => {
 
   event.waitUntil(self.registration.showNotification(data.title, {
     body: data.body,
-    data: data.data
+    data: data.data,
+    icon: 'Images/notif_icon.png',
+    badge: 'Images/icon2.png',
   }));
 });
 
 self.addEventListener("notificationclick", function(event) {
 
-  console.log(event.notification)
   let url = event.notification.data
 
   event.notification.close();
