@@ -26,6 +26,8 @@ export const contact = (req: Request, res: Response) => {
 
 export const orderTracking = (req: Request, res: Response) => {
     res.render("orderTracking", {title: "Order Tracking | CSD"});
+export const orders = (req: Request, res: Response) => {
+    res.render("order", {title: "Orders | CSD"});
 };
 
 export const notFound = (req: Request, res: Response) => {
