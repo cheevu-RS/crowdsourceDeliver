@@ -3,6 +3,8 @@ import {validationResult} from "express-validator";
 import {User} from "../models/User";
 import passport from "passport";
 import "../handlers/passport";
+import {UserData} from "../models/userModel"
+const fetch = require("node-fetch");
 
 export const login = (req: Request, res: Response) => {
     if (req.user) {
@@ -63,6 +65,26 @@ export const registerForm = async (req: Request, res: Response) => {
         });
     } else {
         const user = new User({email: req.body.email});
+        
+        let rollno = 106117001;
+        let ldapData: any = await fetch(`http://delta.nitt.edu/ldap/info/${rollno}?key=tpulpGE0O5`)
+        ldapData = await ldapData.json()
+        console.log(ldapData);
+        let userData = {
+            name: ldapData.name,
+            username: ldapData.username,
+            phoneNumber: ldapData.phone,
+            year: Number(ldapData.username[4]+ldapData.username[5])+4,
+            department: ldapData.dept,
+            rollNo: ldapData.username,
+            //@ts-ignore
+            friendList: [],
+            rating: 2.5,
+            subscription: ''
+        }
+        let newUser = new UserData(userData)
+        await newUser.save()
+
         await User.register(user, req.body.password, function(err) {
             if (err) {
                 req.flash("error", `${err.message}`);

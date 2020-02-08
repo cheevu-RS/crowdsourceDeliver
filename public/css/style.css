@@ -278,6 +278,10 @@ body {
         background: yellow;
         margin: 20px 0;
     }
+
+    .user-search-item-container{
+        margin-bottom: 15px;
+    }
 }
 
 @media (min-width: 728px){

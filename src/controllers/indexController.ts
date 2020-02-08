@@ -10,6 +10,10 @@ export const profile = (req: Request, res: Response) => {
     res.render("profile", {title: "Profile | CSD"});
 };
 
+export const search = (req: Request, res: Response) => {
+    res.render("search", {title: "Explore | CSD"});
+};
+
 export const contact = (req: Request, res: Response) => {
     res.render("contact", {title: "Contact | CSD"});
 };

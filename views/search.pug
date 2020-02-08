@@ -1,0 +1,17 @@
+extends layout
+
+block content
+
+  section
+    .container
+        .user-search-bar.active-purple-4.mb-4
+            input.form-control(type="text" placeholder="Search" aria-label="Search" onkeyup='searchUser(this.value);')
+        #user-search-results
+                    
+                
+
+
+    script(src='/js/search.js')
+
+
+

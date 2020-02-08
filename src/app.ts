@@ -19,6 +19,8 @@ import indexRouter from "./routes/index";
 import authRouter from "./routes/auth";
 import "./handlers/passport";
 
+import {UserData} from "./models/userModel"
+
 
 // import environmental variables from our variables.env file
 
@@ -62,9 +64,12 @@ app.use(passport.session());
 app.use(flash());
 
 // pass variables to our templates + all requests
-app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     res.locals.flashes = req.flash();
     res.locals.user = req.user || null;
+    //@ts-ignore
+    res.locals.userData = await UserData.findOne({username:String(req.user.email).slice(0,9)}) || null;
+    console.log(res.locals.userData);
     res.locals.currentPath = req.path;
     next();
 });
