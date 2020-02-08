@@ -76,3 +76,9 @@ export const chooseOrder = (req: Request, res: Response) => {
         title: "Choose the order you'd like to deliver"
     })
 }
+
+export const bid = (req: Request, res: Response) => {
+    res.render("bid", {
+        title: "Bidding page"
+    })
+}
