@@ -4,8 +4,12 @@ const orderController = require("../controllers/orderController");
 
 orderRouter.post("/createOrder", orderController.createOrder);
 
-orderRouter.post("/updateStatue", orderController.updateStatus);
+orderRouter.post("/updateStatus", orderController.updateStatus);
 
 orderRouter.post("/broadcastOrder", orderController.broadCastOrder);
 
-orderRouter.post("/getAllOrders", orderController.getAllOrders)
+orderRouter.post("/getAllOrders", orderController.getAllOrders);
+
+module.exports ={
+    orderRouter: orderRouter
+}

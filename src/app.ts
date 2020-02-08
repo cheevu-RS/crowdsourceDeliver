@@ -13,6 +13,8 @@ import cors from "cors";
 import helmet from "helmet";
 import errorHandler from "errorhandler";
 const {userRouter} = require("./routes/userRouter")
+const {bidRouter} = require("./routes/bidRouter")
+const {orderRouter} = require("./routes/orderRouter")
 
 dotenv.config({path: "variable.env"});
 import indexRouter from "./routes/index";
@@ -76,6 +78,8 @@ app.use(async (req: express.Request, res: express.Response, next: express.NextFu
 
 //  Express Routing URLS
 app.use('/user', userRouter);
+app.use('/bid', bidRouter);
+app.use('/order', orderRouter);
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
 

@@ -10,7 +10,7 @@ let createOrder = async(req, res, next) => {
         ordererId : ordererId,
         itemDescription : itemDescription
     })
-
+    
     await newOrder.save()
 
     res.send("Created order")
@@ -47,7 +47,7 @@ let updateStatus = async(req,res) => {
 
 let getAllOrders = async(req,res) => {
     try {
-        let doc = await Order.find({ordererId:req.userId});
+        let doc = await Order.find({});
         return res.status(200).send(doc);
     } catch (e) {
         res.status(500).send(e)
@@ -55,8 +55,8 @@ let getAllOrders = async(req,res) => {
 }
 
 module.exports = {
-    getSortedBids : getSortedBids,
     createOrder : createOrder,
     updateStatus: updateStatus,
     broadCastOrder: broadCastOrder,
+    getAllOrders : getAllOrders
 }

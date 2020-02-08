@@ -9,3 +9,7 @@ bidRouter.post("/deleteBids", bidController.deleteBids);
 bidRouter.post("/deleteBid", bidController.deleteBid);
 
 bidRouter.post("/getBids", bidController.getSortedBids);
+
+module.exports = {
+    bidRouter: bidRouter
+}
