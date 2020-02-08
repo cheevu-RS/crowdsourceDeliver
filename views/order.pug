@@ -9,28 +9,28 @@ block content
                 #headingOne.card-header
                     h5.mb-0
                         .row(style="justify-content:center")
-                            .card.col-4
+                            .card.col-4(style='border-radius:0;border:none;')
                                 img.card-img-top(src='https://delta.nitt.edu/~ram/nitt_img/2k.jpg' alt='')
-                            .card.col-8
-                                button.btn.btn-link(data-toggle='collapse', data-target='#collapseOne', aria-expanded='true', aria-controls='collapseOne')
+                            .card.col-8(style='border-radius:0;')
+                                button.btn.btn-link(data-toggle='collapse', data-target='#collapseOne', aria-expanded='true', aria-controls='collapseOne' style='font-size:large;text-decoration:none;')
                                     Collapsible 2k Market 
-                            #collapseOne.collapse.show(aria-labelledby='headingOne', data-parent='#accordion')
+                            #collapseOne.collapse(aria-labelledby='headingOne', data-parent='#accordion' style='width:100%;')
                                 .card-body(style="display:flex")
-                                    textarea#whatToBuy(placeholder="Enter what to buy with quantity")
+                                    textarea.form-control#whatToBuy(placeholder="Enter what to buy with quantity")
                                     button.btn.btn-link#orderButton(onclick="buyItem('whatToBuy','2k Market')")
                                         | Buy 
                                         .card.col-12
                 #headingOne.card-header
                     h5.mb-0
                         .row(style="justify-content:center")
-                            .card.col-4
+                            .card.col-4(style='border-radius:0;border:none;')
                                 img.card-img-top(src='https://delta.nitt.edu/~ram/nitt_img/ccd.jpg' alt='')
-                            .card.col-8
-                                button.btn.btn-link(data-toggle='collapse', data-target='#collapseTwo', aria-expanded='true', aria-controls='collapseOne')
+                            .card.col-8(style='border-radius:0;')
+                                button.btn.btn-link(data-toggle='collapse', data-target='#collapseTwo', aria-expanded='true', aria-controls='collapseOne' style='font-size:large;text-decoration:none;')
                                     Collapsible Cafe coffee day 
-                            #collapseTwo.collapse.show(aria-labelledby='headingOne', data-parent='#accordion')
+                            #collapseTwo.collapse(aria-labelledby='headingOne', data-parent='#accordion' style='width:100%;')
                                 .card-body(style="display:flex")
-                                    textarea#whatToBuy1(placeholder="Enter what to buy with quantity")
+                                    textarea.form-control#whatToBuy1(placeholder="Enter what to buy with quantity")
                                     button.btn.btn-link#orderButton1(onclick="buyItem('whatToBuy1','Cafe coffee day')")
                                         | Buy 
     script(src="/js/orders.js")
