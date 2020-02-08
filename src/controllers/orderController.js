@@ -45,7 +45,7 @@ let updateStatus = async(req,res) => {
     }
 }
 
-let getAllOrders = async(req,res){
+let getAllOrders = async(req,res) => {
     try {
         let doc = await Order.find({ordererId:req.userId});
         return res.status(200).send(doc);
