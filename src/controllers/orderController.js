@@ -3,12 +3,6 @@ const {User} = require("./../models/userModel")
 const {Bid} = require("./../models/bidModel")
 const {sendNotif} = require("./../sendNotif")
 
-let getSortedBids = async(req, res, next) => {
-    let orderId = req.query.orderId
-    let bids = await Bid.find({_id : orderId}).sort((a, b) => a < b)
-    return bids
-}
-
 let createOrder = async(req, res, next) => {
     let ordererId = req.query.ordererId
     let itemDescription = req.query.itemDescription
@@ -51,8 +45,18 @@ let updateStatus = async(req,res) => {
     }
 }
 
+let getAllOrders = async(req,res){
+    try {
+        let doc = await Order.find({ordererId:req.userId});
+        return res.status(200).send(doc);
+    } catch (e) {
+        res.status(500).send(e)
+    }
+}
+
 module.exports = {
     getSortedBids : getSortedBids,
     createOrder : createOrder,
     updateStatus: updateStatus,
+    broadCastOrder: broadCastOrder,
 }

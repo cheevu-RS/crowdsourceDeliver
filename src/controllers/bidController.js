@@ -15,6 +15,12 @@ let createBid = async(req, res, next) => {
     return res.send("Bid created successfully")
 }
 
+let getSortedBids = async(req, res, next) => {
+    let orderId = req.query.orderId
+    let bids = await Bid.find({_id : orderId}).sort((a, b) => a < b)
+    return bids
+}
+
 // Delete all the bids given orderId
 const deleteBids = async(req, res, next) => {
     let orderId = req.query.orderId
@@ -33,5 +39,6 @@ let deleteBid = async(req, res, next) => {
 module.exports = {
     createBid : createBid,
     deleteBid : deleteBid,
-    deleteBids : deleteBids
+    deleteBids : deleteBids,
+    getSortedBids: getSortedBids,
 }
