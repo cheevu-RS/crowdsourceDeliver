@@ -1,4 +1,4 @@
-const {User} = require("../models/userModel")
+const {UserData} = require("../models/userModel")
 const mongoose = require("mongoose")
 
 let getUser = async(req, res, next) => {
@@ -98,7 +98,6 @@ let getFriends = async(username) => {
         return [];
     }
     let friends = user.friendList
-    console.log(friends)
 
     let friend_data = new Set()
     for(let friend in friends){

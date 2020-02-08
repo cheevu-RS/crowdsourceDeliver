@@ -15,5 +15,5 @@ const UserSchema = Schema({
 })
 
 module.exports = {
-    User : Model('User Model', UserSchema)
+    UserData : Model('UserModel', UserSchema)
 }
