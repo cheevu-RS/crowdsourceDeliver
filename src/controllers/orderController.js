@@ -1,4 +1,5 @@
-const {Order} = require("./../models/orderModel")
+const { OrderData } = require("./../models/orderModel")
+const Order = OrderData;
 const {User} = require("./../models/userModel")
 const {Bid} = require("./../models/bidModel")
 const {sendNotif} = require("./../sendNotif")

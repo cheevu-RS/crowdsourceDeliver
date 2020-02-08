@@ -74,8 +74,9 @@ export const contactForm = (req: Request, res: Response) => {
 };
 
 export const chooseOrder = async (req: Request, res: Response) => {
-    console.log("orderplease", res.locals.username)
-    let availableOrders = await fetch('http://localhost:3000/user/getValidOrders/?username=' + res.locals.username)
+    console.log("orderplease", res.locals.userData.username)
+    let availableOrders = await fetch('http://localhost:3000/user/getValidOrders?username=' + res.locals.userData.username);
+    availableOrders = await availableOrders.json();
     res.render("chooseOrder", {
         title: "Choose the order you'd like to deliver",
         availableOrders: availableOrders
