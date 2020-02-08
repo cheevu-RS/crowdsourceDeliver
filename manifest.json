@@ -1,0 +1,7 @@
+{
+    "name": "csd",
+    "short_name": "csd",
+    "lang": "en-US",
+    "start_url": "/",
+    "display": "standalone"
+  }

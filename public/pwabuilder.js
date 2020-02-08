@@ -1,8 +1,3 @@
-// This is the service worker with the combined offline experience (Offline page + Offline copy of pages)
-
-// Add this below content to your HTML page, or add the js file to your page at the very top to register service worker
-
-// Check compatibility for the browser we're running this in
 function urlBase64ToUint8Array(base64String) {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
@@ -37,29 +32,37 @@ const register = async () => {
               reg.scope
           );
         });
-
-      if ("serviceWorker" in navigator) {
-        const register = await navigator.serviceWorker.register("/sw.js", {
-          scope: "/"
-        });
-
-        const subscription = await register.pushManager.subscribe({
-          userVisibleOnly: true,
-          applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
-        });
-
-        await fetch("/subscribe", {
-          method: "POST",
-          body: JSON.stringify(subscription),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        });
-      } else {
-        console.error("Service workers are not supported in this browser");
       }
     }
-  }
 };
 
 register();
+
+function subscribePush() {
+  navigator.serviceWorker.ready.then(function(registration) {
+    if (!registration.pushManager) {
+      alert('Your browser doesn\'t support push notification.');
+      return false;
+    }
+
+    //To subscribe `push notification` from push manager
+    registration.pushManager.subscribe({
+      userVisibleOnly: true, //Always show notification when received
+      applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+    })
+    .then(function (subscription) {
+      console.info('Push notification subscribed.');
+      fetch("/subscribe", {
+        method: "POST",
+        body: JSON.stringify(subscription),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      console.log(subscription);
+    })
+    .catch(function (error) {
+      console.error('Push notification subscription error: ', error);
+    });
+  })
+}
