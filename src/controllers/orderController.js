@@ -7,9 +7,13 @@ require("./../controllers/userController")
 let createOrder = async(req, res, next) => {
     let ordererId = req.query.ordererId
     let itemDescription = req.query.itemDescription
+    let pickupLocation = req.query.pickupLocation
+    let dropLocation = req.query.dropLocation
     let newOrder = new Order({
         ordererId : ordererId,
-        itemDescription : itemDescription
+        itemDescription : itemDescription,
+        pickupLocation : pickupLocation,
+        dropLocation : dropLocation 
     })
     
     await newOrder.save()
