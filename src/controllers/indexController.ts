@@ -2,15 +2,33 @@ import {Request, Response, NextFunction} from "express";
 import {validationResult} from "express-validator";
 import * as mail from "../handlers/mail";
 
+import {UserData} from '../models/userModel';
+
 export const home = (req: Request, res: Response) => {
     res.render("home", {title: "Home | CSD"});
 };
 
-export const profile = (req: Request, res: Response) => {
+export const profile = async (req: Request, res: Response) => {
     if (!req.user) {
         return res.redirect("/login");
     }
-    res.render("profile", {title: "Profile | CSD"});
+    
+    if(req.params.username){
+        console.log("PROFILE",req.params.username);
+        try{
+            //@ts-ignore
+            let userData = await UserData.findOne({username: req.params.username});
+            if(!userData)
+                throw new Error("User not Found");
+            res.render("profile", {title: "Profile | CSD", userData});
+        } catch(e){
+            console.log(e);
+            res.redirect('/404');
+        }
+    } else{
+        console.log("PROFILE-else",req.params.username);
+        res.render("profile", {title: "Profile | CSD"});
+    } 
 };
 
 export const search = (req: Request, res: Response) => {

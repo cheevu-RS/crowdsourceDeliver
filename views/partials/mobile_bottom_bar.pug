@@ -9,5 +9,9 @@
         a(href='/deliver')
             i.fas.fa-truck
     div
-        a(href='/profile')
-            i.far.fa-user
+        if userData
+            a(href='/profile/'+userData.username)
+                i.far.fa-user
+        else
+            a(href='/profile/1')
+                i.far.fa-user

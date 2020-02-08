@@ -7,28 +7,28 @@ block content
         .profile-user-img-container
             img(src='https://source.unsplash.com/user/timmossholder/350x250')
         .profile-user-content
-            .profile-user-content-inner-left
-                span
-                    | Name: #{userData.name}
-                    br
-                    //- | Uname: #{userData.username}
-                    //- br
-                    | Roll: #{userData.rollNo}
-                    br
-                    | Dept: #{userData.department}
-            .profile-user-content-inner-right
-                span
-                    | Year: #{userData.year}
-                    br
-                    | Rating: #{userData.rating}
-                    br
-                    | UPI id: shakeabi@upi
-        .profile-user-inner-nav
-            div
-                p
-                    | Order History
-            div
-                p
-                    | Current Orders
-        .profile-user-order-container
+            if userData
+                .profile-user-content-inner-left
+                    span
+                        | Name: #{userData.name}
+                        br
+                        | Roll: #{userData.rollNo}
+                        br
+                        | Dept: #{userData.department}
+                .profile-user-content-inner-right
+                    span
+                        | Year: #{userData.year}
+                        br
+                        | Rating: #{userData.rating}
+                        br
+                        | UPI id: shakeabi@upi
+        if userData.username==currentPath.split('/')[2]           
+            .profile-user-inner-nav
+                div
+                    p
+                        | Order History
+                div
+                    p
+                        | Current Orders
+            .profile-user-order-container
 
