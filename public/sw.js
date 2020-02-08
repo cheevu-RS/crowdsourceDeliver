@@ -85,7 +85,18 @@ self.addEventListener("refreshOffline", function() {
 self.addEventListener("push", event => {
   const data = event.data.json();
 
-  self.registration.showNotification(data.title, {
-    body: data.body
-  });
+  event.waitUntil(self.registration.showNotification(data.title, {
+    body: data.body,
+    data: data.data
+  }));
+});
+
+self.addEventListener("notificationclick", function(event) {
+
+  console.log(event.notification)
+  let url = event.notification.data
+
+  event.notification.close();
+
+  event.waitUntil(clients.openWindow(url));
 });

@@ -1,5 +1,7 @@
-const {Order} = require("../models/orderModel")
-const {Bid} = require("../models/bidModel")
+const {Order} = require("./../models/orderModel")
+const {User} = require("./../models/userModel")
+const {Bid} = require("./../models/bidModel")
+const {sendNotif} = require("./../sendNotif")
 
 let getSortedBids = async(req, res, next) => {
     let orderId = req.query.orderId
@@ -20,7 +22,37 @@ let createOrder = async(req, res, next) => {
     res.send("Created order")
 }
 
+//Send order to all your friends....
+let broadCastOrder = async(req,res) => {
+    let orderId = req.orderId;
+    let userId = req.userId;
+    let friends = []; //Query for all his friends....
+    friends.forEach(friend => {
+        let subs = User.findOne({_id: friend}).subscription;
+        let content = "Your friend wants you to carry his package from xxxx";
+        sendNotif("New Delivery",content,"login",subs)
+    });
+}
+
+//Update Tracking status
+let updateStatus = async(req,res) => {
+    let messages = ["Your order has been arrived",
+                    "Your order has been collected",
+                    "Your order is waiting at your doorsteps"]
+    let status = req.status;
+    let userId = req.userId;
+    try {
+        await Order.findOneAndUpdate({_id:req.orderId},{$set : {status:status}})
+        res.status(200).send("Successfully updated");
+        let subs = User.findOne({_id: userId}).subscription;
+        sendNotif("Order Update!", messages[status],"login",subs);
+    } catch (e) {
+        res.status(500).send(e);
+    }
+}
+
 module.exports = {
     getSortedBids : getSortedBids,
-    createOrder : createOrder
+    createOrder : createOrder,
+    updateStatus: updateStatus,
 }

@@ -9,11 +9,7 @@ import * as indexController from "../controllers/indexController";
 import * as postController from "../controllers/postController";
 import {ensureLoggedIn} from "connect-ensure-login";
 
-const publicVapidKey = "BFbDmtNIoI7jokDZkeG6oPVPNUxWsRUpAKHgGGkdXf6RjLo5WrcP4DK3yMaxd7KEvJPIJnU4lM5LpZASj2Kd234";
-const privateVapidKey = "hoj5Bep92tT-oyuAS79IkHgWmscY8n5wLcjOnu5sVcs";
-const webPush = require('web-push');
-const bodyParser = require('body-parser');
-
+const {sendNotif} = require("../sendNotif");
 /*
   wrapAsync Handler
   With async/await, you need some way to catch errors
@@ -131,22 +127,17 @@ router.get("/logout", authController.logout);
 
 router.get("/create", ensureLoggedIn("/login"), postController.addPost);
 
-webPush.setVapidDetails('mailto:deeraj@delta.nitt.edu', publicVapidKey, privateVapidKey);
-
+//Service worker will call this for the first time, probably a welcome notifications
 router.post('/subscribe', (req, res) => {
-    const subscription = req.body
+    sendNotif("Beep Beep soru here", "Pizza Delivered, Hot and Saucyyyyyy!", "login", req.body);
+    console.log(req.body);
+});
 
-    res.status(201).json({});
-
-    const payload = JSON.stringify({
-      title: "Beep Beep soru here",
-      body: "Pizza Delivered, Hot and Saucyyyyyy!",
-    });
-
-    webPush.sendNotification(subscription, payload)
-      .catch((error: any) => console.error(error));
-    }
-);
+router.post('/sampleNotif',(req,res)=>{
+    let subs = req.body;
+    sendNotif("Test","Try Clicking here", "login",subs)
+    res.status(200).send("Success")
+})
 
 router.post("/")
 router.post(
