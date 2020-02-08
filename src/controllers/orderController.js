@@ -1,5 +1,5 @@
-const {Order} = require("./../models/orderModel")
-const {Bid} = require("./../models/bidModel")
+const {Order} = require("../models/orderModel")
+const {Bid} = require("../models/bidModel")
 
 let getSortedBids = async(req, res, next) => {
     let orderId = req.query.orderId

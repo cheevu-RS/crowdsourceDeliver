@@ -1,4 +1,4 @@
-const {Bid} = require("./../models/bidModel")
+const {Bid} = require("../models/bidModel")
 
 let createBid = async(req, res, next) => {
     let orderId = req.query.orderId
@@ -15,14 +15,23 @@ let createBid = async(req, res, next) => {
     return res.send("Bid created successfully")
 }
 
+// Delete all the bids given orderId
+const deleteBids = async(req, res, next) => {
+    let orderId = req.query.orderId
+    await Bid.findAndRemove({orderId : orderId})
+    res.send("Successfully deleted bids")
+}  
+
+// Delete bid given bid id
 let deleteBid = async(req, res, next) => {
     let bId = req.query.bId
-    await User.findOneAndRemove({_id : bId})
-    res.send("Successfully deleted user")
+    await Bid.findOneAndRemove({_id : bId})
+    res.send("Successfully deleted bid")
 }
 
 
 module.exports = {
     createBid : createBid,
-    deleteBid : deleteBid
+    deleteBid : deleteBid,
+    deleteBids : deleteBids
 }

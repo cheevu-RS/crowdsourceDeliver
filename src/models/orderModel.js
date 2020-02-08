@@ -14,6 +14,7 @@ const Order = Schema({
     // If status is 3 -> Delivery dude has reached drop location
     // If status is 4 -> Delivery dude has delivered
     status : {type : [Schema.Types.Date]},
+    
 })
 
 module.exports = {

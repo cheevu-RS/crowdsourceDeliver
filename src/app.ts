@@ -12,11 +12,13 @@ import compression from "compression";
 import cors from "cors";
 import helmet from "helmet";
 import errorHandler from "errorhandler";
+const {userRouter} = require("./routes/userRouter")
 
 dotenv.config({path: "variable.env"});
 import indexRouter from "./routes/index";
 import authRouter from "./routes/auth";
 import "./handlers/passport";
+
 
 // import environmental variables from our variables.env file
 
@@ -68,12 +70,14 @@ app.use((req: express.Request, res: express.Response, next: express.NextFunction
 });
 
 //  Express Routing URLS
+app.use('/user', userRouter);
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
 
-app.get("*", function(req: express.Request, res: express.Response) {
-    return res.status(404).redirect("/404");
-});
+// app.get("*", function(req: express.Request, res: express.Response) {
+//     return res.status(404).redirect("/404");
+// });
+
 
 if (app.get("env") === "development") {
     app.use(errorHandler());

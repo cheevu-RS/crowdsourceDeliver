@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
-const Model = mogoose.Model
+const Model = mongoose.Model
 
 const bidSchema = Schema({
     orderId : {type : Schema.Types.ObjectId, required : true},
@@ -14,3 +14,5 @@ const bidSchema = Schema({
 module.exports = {
     Bid : Model("Bid Schema", bidSchema)
 }
+
+export{};

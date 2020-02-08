@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import app from "./app";
 import config from "./config";
 
+
 // Make sure we are running node 10+
 const [major, minor] = process.versions.node.split(".").map(parseFloat);
 if (false && major < 10 || (major === 10 && minor <= 8)) {
@@ -17,6 +18,10 @@ mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
 mongoose.connection.on("error", err => {
     console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
 });
+
+// Including all the routers
+// app.use('/bid', bidRouter)
+// app.use('/user', userRouter)
 
 const server = app.listen(config.port, () => {
     console.log(`Express running → PORT ${config.port}`);

@@ -4,12 +4,12 @@ const Model = mongoose.model
 
 const UserSchema = Schema({
     name : {type : String, required : true},
-    username : {type : String, required : true},
+    username : {type : String, required : true, unique : true},
     phoneNumber : {type : Number, required : true},
     year : {type : Number, required : true},
     department : {type : String, required: true},
-    rollno : {type : String, required : true},
-    friendList : {type : [Schama.Types.ObjectId]},
+    rollNo : {type : String, required : true},
+    friendList : {type : [Schema.Types.ObjectId]},
     rating : {type : Number},
     subscription : {type : String}
 })
