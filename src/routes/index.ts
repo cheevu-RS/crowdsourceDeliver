@@ -8,6 +8,7 @@ import * as authController from "../controllers/authController";
 import * as indexController from "../controllers/indexController";
 import * as postController from "../controllers/postController";
 import {ensureLoggedIn} from "connect-ensure-login";
+import { User } from "../models/userModel";
 
 const {sendNotif} = require("../sendNotif");
 /*
@@ -130,8 +131,13 @@ router.get("/create", ensureLoggedIn("/login"), postController.addPost);
 
 //Service worker will call this for the first time, probably a welcome notifications
 router.post('/subscribe', (req, res) => {
+    try{
+        User.findOneAndUpdate({_id:(req.body.userId)},{$set:{subscribe:req.body}})
+    } catch{
+        res.status(500).send("Notification could not be subscribed, Server error")
+    }
     sendNotif("Beep Beep soru here", "Pizza Delivered, Hot and Saucyyyyyy!", "login", req.body);
-    console.log(req.body);
+    res.status(200).send("Notification Subscribed")
 });
 
 router.post('/sampleNotif',(req,res)=>{
