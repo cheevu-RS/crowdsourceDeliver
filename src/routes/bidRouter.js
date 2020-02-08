@@ -11,5 +11,5 @@ bidRouter.post("/deleteBid", bidController.deleteBid);
 bidRouter.post("/getBids", bidController.getSortedBids);
 
 module.exports = {
-    bidRouter: bidRouter
+    bidRouter : bidRouter
 }

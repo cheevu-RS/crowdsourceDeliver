@@ -35,4 +35,5 @@ userRouter.get('/getValidOrders',
 )
 
 module.exports = {
-    userRouter : userRouter}
+    userRouter : userRouter
+}

@@ -3,8 +3,8 @@ const Schema = mongoose.Schema
 const Model = mongoose.model
 
 const bidSchema = Schema({
-    orderId : {type : Schema.Types.ObjectId, required : true},
-    userId : {type : Schema.Types.ObjectId, required : true},
+    orderId : {type : String, required : true},
+    userId : {type : String, required : true},
     bidPrice : {type : Schema.Types.Decimal128, required : true},
     // In minutes
     ETA : {type : Number},

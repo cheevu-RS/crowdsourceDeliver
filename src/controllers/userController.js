@@ -1,4 +1,5 @@
 const {UserData} = require("../models/userModel")
+const {OrderData} = require("../models/orderModel")
 const mongoose = require("mongoose")
 
 let getUser = async(req, res, next) => {
@@ -32,7 +33,7 @@ let updateUser = async(req, res, next) => {
 }
 
 let addFriend = async(req, res, next) => {
-    let friendId = req.query.friendId
+    let friendId = req.query.friendUsername
 
     if(!friendId){
         res.json("No friend id recieved")
@@ -41,14 +42,14 @@ let addFriend = async(req, res, next) => {
     let username = req.query.username
     let user = await UserData.findOne({username : username})
     let friendList = user.friendList
-    friendId = mongoose.Types.ObjectId(friendId)
-    if(!friendList){
+
+    if(friendList.length == 0){
         friendList = [friendId]
-    }
-    else{
+    }else{
         friendList.push(friendId)
     }
-    await UserData.findOneAndUpdate({username : username, $set : {friendList : user.friendList}})
+    
+    await UserData.findOneAndUpdate({username : username, $set : {friendList : friendList}})
     res.json("Successfully added friend " + friendId + " to user " + username)
 }
 
@@ -75,21 +76,30 @@ let deleteUser = async(req, res, next) => {
 
 let getValidOrders = async(req, res, next) => {
     let username = req.query.username
+    if(!username){
+        return res.status(400).json({
+            message : "No username found"
+        })
+    }
     let friends = await getFriends(username)
-
     let validOrders = []
 
     // Checking if any of these friends have issued any orders
-    for(let friend_obj in friends){
+    for(let i = 0; i < friends.length; ++i){
+        let friend_obj = friends[i]
         let friend_data = friend_obj.data
         let friendId = friend_data._id
-        let orders = await Order({ordererId : friendId})
-        for(let order in orders){
-            validOrders.append(order)
+        let orders = await OrderData.find({ordererId : friendId})
+        if(!orders || orders.length == 0){
+            continue;
+        }
+        for(let i = 0; i < orders.length; ++i){
+            let order = orders[i]
+            validOrders.push(order)
         }
     }
     
-    res.json(validOrders)
+    return res.json(validOrders)
 }
 
 // Returns friends at depth 2
@@ -98,25 +108,36 @@ let getFriends = async(username) => {
     if(!user){
         return [];
     }
-    let friends = user.friendList
 
-    let friend_data = new Set()
-    for(let friend in friends){
-        let friend_details = await UserData.findOne({_id : friend})
-        friend_data.add({data : friend_details, depth : 1})
-        if(friend_data.has({data : friend_details, depth : 2})){
-            friend_data.delete({data : friend_details, depth : 2})
+    let friends = user.friendList
+    // console.log(friends)
+
+    let return_data = new Set()
+    for(let i = 0; i < friends.length; ++i){
+        let friend = friends[i]
+        let friend_details = await UserData.findOne({username : friend})
+        
+        if(!friend_details){
+            continue;
         }
-        let friend_friends = friend_details.friendList 
-        for(let friend_friend in friend_friends){
-            let friend_friend_details = await UserData.findOne({_id : friend_friend})
-            if(!friend_data.has({data : friend_friend_details, depth : 1})){
-                friend_data.add({data : friend_friend_details, depth : 2}) 
+
+        return_data.add({data : friend_details, depth : 1})
+        if(return_data.has({data : friend_details, depth : 2})){
+            return_data.delete({data : friend_details, depth : 2})
+        }
+
+        for(let j = 0; j < friend_details.friendList.length; ++j){
+            let friend_friend = friend_details.friendList[j]
+            // console.log(friend_friend, "Friend friend")
+            let friend_friend_details = await UserData.findOne({username : friend_friend})
+            if(!return_data.has({data : friend_friend_details, depth : 1})){
+                return_data.add({data : friend_friend_details, depth : 2}) 
             }
-        }
+        } 
     }
 
-    return friend_data
+    let final_data = Array.from(return_data)
+    return final_data
 }
 
 module.exports = {

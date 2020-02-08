@@ -8,8 +8,8 @@ orderRouter.post("/updateStatus", orderController.updateStatus);
 
 orderRouter.post("/broadcastOrder", orderController.broadCastOrder);
 
-orderRouter.post("/getAllOrders", orderController.getAllOrders);
+orderRouter.post("/getAllOrders", orderController.getAllOrders)
 
-module.exports ={
-    orderRouter: orderRouter
+module.exports = {
+    orderRouter : orderRouter
 }

@@ -9,7 +9,7 @@ const UserSchema = Schema({
     year : {type : Number, required : true},
     department : {type : String, required: true},
     rollNo : {type : String, required : true},
-    friendList : {type : [Schema.Types.ObjectId]},
+    friendList : {type : [String]},
     rating : {type : Number},
     subscription : {type : String}
 })

@@ -19,10 +19,6 @@ mongoose.connection.on("error", err => {
     console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
 });
 
-// Including all the routers
-// app.use('/bid', bidRouter)
-// app.use('/user', userRouter)
-
 const server = app.listen(config.port, () => {
     console.log(`Express running → PORT ${config.port}`);
 });
