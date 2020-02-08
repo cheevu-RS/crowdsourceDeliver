@@ -24,6 +24,10 @@ export const contact = (req: Request, res: Response) => {
     res.render("contact", {title: "Contact | CSD"});
 };
 
+export const orders = (req: Request, res: Response) => {
+    res.render("order", {title: "Orders | CSD"});
+};
+
 export const notFound = (req: Request, res: Response) => {
     console.log(req.path);
     res.render("404", {title: "Not Found | CSD"});
