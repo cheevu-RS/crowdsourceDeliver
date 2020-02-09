@@ -3,6 +3,7 @@ const {User} = require("./../models/userModel")
 const {Bid} = require("./../models/bidModel")
 const {sendNotif} = require("./../sendNotif")
 require("./../controllers/userController")
+const mongoose = require("mongoose")
 
 let createOrder = async(req, res, next) => {
     let ordererId = req.query.ordererId
@@ -35,9 +36,11 @@ let broadCastOrder = async(req,res) => {
 
 //Update Tracking status
 let updateStatus = async(req,res) => {
-    let messages = ["Your order has been arrived",
-                    "Your order has been collected",
-                    "Your order is waiting at your doorsteps"]
+    let messages = ["The Delivery Person hasn't reached the pickup point",
+                    "The Delivery Person has reached the pickup point",
+                    "The Delivery Person has picked up the item",
+                    "The Delivery Person has reached the drop location",
+                    "The Delivery Person has delivered the item"]
     let status = req.status;
     let userId = req.userId;
     try {
@@ -59,9 +62,23 @@ let getAllOrders = async(req,res) => {
     }
 }
 
+let getLastOrder = async(req,res) => {
+    try {
+        console.log("id", req.query.ordererId);
+        let newId = mongoose.Types.ObjectId(req.query.ordererId);
+        console.log(newId);
+        let doc = await Order.find({ordererId:newId})
+        // .sort({"orderCreationTime":-1}).limit(1)
+        console.log("hoo",doc)
+        return res.status(200).send(doc);
+    } catch (e) {
+        res.status(500).send(e)
+    }
+}
 module.exports = {
     createOrder : createOrder,
     updateStatus: updateStatus,
     broadCastOrder: broadCastOrder,
-    getAllOrders : getAllOrders
+    getAllOrders : getAllOrders,
+    getLastOrder: getLastOrder
 }

@@ -6,7 +6,7 @@ let createBid = async(req, res, next) => {
     let userId = req.query.userId
     let new_bid = new Bid({
         orderId : orderId,
-        bidAmount : bidAmount, 
+        bidPrice : bidAmount, 
         userId : userId
     })
 
@@ -16,9 +16,11 @@ let createBid = async(req, res, next) => {
 }
 
 let getSortedBids = async(req, res, next) => {
-    let orderId = req.query.orderId
-    let bids = await Bid.find({_id : orderId}).sort((a, b) => a < b)
-    return bids
+    let orderId = req.query.orderId;
+    console.log(orderId);
+    let bids = await Bid.find({orderId : orderId}).sort("bidPrice")
+    console.log(bids);
+    return res.send(bids);
 }
 
 // Delete all the bids given orderId

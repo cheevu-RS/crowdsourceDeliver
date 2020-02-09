@@ -1,6 +1,7 @@
 import {Request, Response, NextFunction} from "express";
 import {validationResult} from "express-validator";
 import * as mail from "../handlers/mail";
+const safeJsonStringify = require('safe-json-stringify');
 
 import {UserData} from '../models/userModel';
 
@@ -46,6 +47,11 @@ export const orderTracking = (req: Request, res: Response) => {
     res.render("orderTracking", {title: "Order Tracking | CSD"});
 export const orders = (req: Request, res: Response) => {
     res.render("order", {title: "Orders | CSD"});
+};
+
+export const bids = (req: Request, res: Response) => {
+console.log("BIDS ARE " + safeJsonStringify(req.path));
+res.render("bid", {title: "bids | CSD"});
 };
 
 export const notFound = (req: Request, res: Response) => {

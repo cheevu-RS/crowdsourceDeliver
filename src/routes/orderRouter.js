@@ -10,6 +10,7 @@ orderRouter.post("/broadcastOrder", orderController.broadCastOrder);
 
 orderRouter.post("/getAllOrders", orderController.getAllOrders)
 
+orderRouter.post("/getLastOrder", orderController.getLastOrder)
 module.exports = {
     orderRouter : orderRouter
 }

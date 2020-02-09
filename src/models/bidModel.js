@@ -12,7 +12,7 @@ const bidSchema = Schema({
 })
 
 module.exports = {
-    Bid : Model("Bid Schema", bidSchema)
+    Bid : Model("BidSchema", bidSchema)
 }
 
 export{};

@@ -84,7 +84,7 @@ app.use(async (req: express.Request, res: express.Response, next: express.NextFu
 
 //  Express Routing URLS
 app.use('/user', userRouter);
-app.use('/bids', bidRouter);
+app.use('/bid', bidRouter);
 app.use('/order', orderRouter);
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
