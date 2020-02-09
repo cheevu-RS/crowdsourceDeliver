@@ -70,7 +70,11 @@ app.use(async (req: express.Request, res: express.Response, next: express.NextFu
     res.locals.flashes = req.flash();
     res.locals.user = req.user || null;
     //@ts-ignore
-    res.locals.userData = await UserData.findOne({username:String(req.user.email).slice(0,9)}) || null;
+    let userData = null;
+    if(req.user)
+    //@ts-ignore
+        userData = await UserData.findOne({username:String(req.user && req.user.email).slice(0,9)}) || null;
+    res.locals.userData =userData;
     console.log(res.locals.userData);
     res.locals.currentPath = req.path;
     next();

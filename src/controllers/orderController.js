@@ -2,6 +2,7 @@ const {Order} = require("./../models/orderModel")
 const {User} = require("./../models/userModel")
 const {Bid} = require("./../models/bidModel")
 const {sendNotif} = require("./../sendNotif")
+require("./../controllers/userController")
 
 let createOrder = async(req, res, next) => {
     let ordererId = req.query.ordererId
@@ -19,8 +20,8 @@ let createOrder = async(req, res, next) => {
 //Send order to all your friends....
 let broadCastOrder = async(req,res) => {
     let orderId = req.orderId;
-    let userId = req.userId;
-    let friends = []; //Query for all his friends....
+    let userName = req.userName;
+    let friends = await getFriends(userName); //Query for all his friends....
     friends.forEach(friend => {
         let subs = User.findOne({_id: friend}).subscription;
         let content = "Your friend wants you to carry his package from xxxx";

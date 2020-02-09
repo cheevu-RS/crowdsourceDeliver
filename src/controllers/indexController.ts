@@ -18,6 +18,10 @@ export const contact = (req: Request, res: Response) => {
     res.render("contact", {title: "Contact | CSD"});
 };
 
+export const orderTracking = (req: Request, res: Response) => {
+    res.render("orderTracking", {title: "Order Tracking | CSD"});
+};
+
 export const notFound = (req: Request, res: Response) => {
     console.log(req.path);
     res.render("404", {title: "Not Found | CSD"});
